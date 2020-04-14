@@ -62,6 +62,10 @@ app.get('/api/v1/on-covid-19/xml', (req, res) => {
 });
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
+  const start = process.hrtime();
+  const durationInMilliseconds = getDurationInMilliseconds(start);
+
+  logger.write(`GET /api/v1/on-covid-19/logs   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
   res.attachment('./src/log.text');
   fs.readFile('./src/log.txt', 'utf8', (err, data) => {
     if (err) throw err;
