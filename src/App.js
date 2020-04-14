@@ -22,13 +22,11 @@ const getDurationInMilliseconds = (start) => {
 };
 
 const logger = fs.createWriteStream('./src/log.txt', {
-  flags: 'a', // 'a' means appending (old data will be preserved)
+  flags: 'a', 
 });
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
 app.use(bodyParser.json());
 
 let covidData;
