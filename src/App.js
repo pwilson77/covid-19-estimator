@@ -22,7 +22,7 @@ const getDurationInMilliseconds = (start) => {
 };
 
 const logger = fs.createWriteStream('./src/log.txt', {
-  flags: 'a', 
+  flags: 'a',
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,9 +31,7 @@ app.use(bodyParser.json());
 
 let covidData;
 
-app.listen(PORT, () => {
-  console.log('the server has started on port 3000');
-});
+app.listen(PORT, () => {} );
 
 app.get('/', (req, res) => {
   res.send('Hello World');
