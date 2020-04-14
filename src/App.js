@@ -32,7 +32,11 @@ app.use(bodyParser.json());
 let covidData;
 
 app.listen(3000, () => {
- console.log('Server running on port 3000');
+  console.log('the server has started on port 3000');
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
 
 app.post('/api/v1/on-covid-19', (req, res) => {
