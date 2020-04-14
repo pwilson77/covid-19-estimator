@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 let covidData;
 
-app.listen(PORT, () => {} );
+app.listen(PORT, () => {});
 
 app.get('/', (req, res) => {
   res.send('Hello World');
