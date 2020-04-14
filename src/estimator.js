@@ -9,7 +9,9 @@ const covid19ImpactEstimator = (data) => {
   const impact = { currentlyInfected: reportedCases * 10 };
   const severeImpact = { currentlyInfected: reportedCases * 50 };
 
-  let powerFactor, days;
+  let powerFactor;
+  let days;
+  
   if (periodType === 'months') {
     days = timeToElapse * 30;
     powerFactor = Math.trunc((timeToElapse * 30) / 3);
