@@ -51,6 +51,7 @@ app.get('/api/v1/on-covid-19/json', (req, res) => {
   const durationInMilliseconds = getDurationInMilliseconds(start);
 
   logger.write(`GET /api/v1/on-covid-19/json   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  res.set('Content-Type', 'application/json');
   res.send(covidData);
 });
 
@@ -68,7 +69,7 @@ app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const durationInMilliseconds = getDurationInMilliseconds(start);
 
   logger.write(`GET /api/v1/on-covid-19/logs   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
-  res.attachment('./src/log.text');
+  res.set('Content-Type', 'text/plain');
   fs.readFile('./src/log.txt', 'utf8', (err, data) => {
     if (err) throw err;
     res.send(data);
