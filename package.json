@@ -8,11 +8,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "start": "node -r esm src/App.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
-    "on-covid-19": "^0.1.3"
+    "jstoxml": "^1.6.5",
+    "on-covid-19": "^0.1.3",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

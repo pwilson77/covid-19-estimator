@@ -1,9 +1,34 @@
-/* eslint linebreak-style: ["error", "windows"] */
+/* eslint-disable linebreak-style */
+import covid19ImpactEstimator from './estimator';
+
 const express = require('express');
 
-import covid19ImpactEstimator from "./estimator";
+const bodyParser = require('body-parser');
+
+const { toXML } = require('jstoxml');
 
 const app = express();
+
+const fs = require('fs');
+
+const getDurationInMilliseconds = (start) => {
+  const NS_PER_SEC = 1e9;
+  const NS_TO_MS = 1e6;
+  const diff = process.hrtime(start);
+
+  return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
+};
+
+const logger = fs.createWriteStream('./src/log.txt', {
+  flags: 'a', // 'a' means appending (old data will be preserved)
+});
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 let covidData;
 
 app.listen(3000, () => {
@@ -11,13 +36,35 @@ app.listen(3000, () => {
 });
 
 app.post('/api/v1/on-covid-19', (req, res) => {
-  covidData = covid19ImpactEstimator(req);
+  const start = process.hrtime();
+  const durationInMilliseconds = getDurationInMilliseconds(start);
+
+  logger.write(`POST /api/v1/on-covid-19    ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  covidData = covid19ImpactEstimator(req.body);
+  res.send(covidData);
 });
 
 app.get('/api/v1/on-covid-19/json', (req, res) => {
+  const start = process.hrtime();
+  const durationInMilliseconds = getDurationInMilliseconds(start);
+
+  logger.write(`GET /api/v1/on-covid-19/json   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
   res.send(covidData);
 });
 
 app.get('/api/v1/on-covid-19/xml', (req, res) => {
-  res.send(covidData);
+  const start = process.hrtime();
+  const durationInMilliseconds = getDurationInMilliseconds(start);
+
+  logger.write(`GET /api/v1/on-covid-19/xml   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  res.set('Content-Type', 'application/xml');
+  res.send(toXML(covidData));
+});
+
+app.get('/api/v1/on-covid-19/logs', (req, res) => {
+  res.attachment('./src/log.text');
+  fs.readFile('./src/log.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    res.send(data);
+  });
 });

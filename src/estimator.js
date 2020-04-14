@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-/* eslint linebreak-style: ["error", "windows"] */
+/* eslint-disable linebreak-style */
 
 const covid19ImpactEstimator = (data) => {
   const {
