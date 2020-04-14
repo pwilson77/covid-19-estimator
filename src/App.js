@@ -11,6 +11,8 @@ const app = express();
 
 const fs = require('fs');
 
+const PORT = process.env.PORT || 3000;
+
 const getDurationInMilliseconds = (start) => {
   const NS_PER_SEC = 1e9;
   const NS_TO_MS = 1e6;
@@ -31,7 +33,7 @@ app.use(bodyParser.json());
 
 let covidData;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('the server has started on port 3000');
 });
 
