@@ -9,13 +9,16 @@ const covid19ImpactEstimator = (data) => {
   const impact = { currentlyInfected: reportedCases * 10 };
   const severeImpact = { currentlyInfected: reportedCases * 50 };
 
-  let powerFactor;
+  let powerFactor, days;
   if (periodType === 'months') {
+    days = timeToElapse * 30;
     powerFactor = Math.trunc((timeToElapse * 30) / 3);
   } else if (periodType === 'weeks') {
+    days = timeToElapse * 7
     powerFactor = Math.trunc((timeToElapse * 7) / 3);
   } else {
     powerFactor = Math.trunc(timeToElapse / 3);
+    days = timeToElapse
   }
 
   impact.infectionsByRequestedTime = Math.trunc(impact.currentlyInfected * (2 ** powerFactor));
@@ -34,8 +37,8 @@ const covid19ImpactEstimator = (data) => {
   impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impact.infectionsByRequestedTime);
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeImpact.infectionsByRequestedTime);
 
-  impact.dollarsInFlight = Math.trunc(impact.infectionsByRequestedTime * region.avgDailyIncomeInUSD * (region.avgDailyIncomePopulation / 30));
-  severeImpact.dollarsInFlight = Math.trunc(severeImpact.infectionsByRequestedTime * region.avgDailyIncomeInUSD * (region.avgDailyIncomePopulation / 30));
+  impact.dollarsInFlight = Math.trunc((impact.infectionsByRequestedTime * region.avgDailyIncomeInUSD * region.avgDailyIncomePopulation) / days);
+  severeImpact.dollarsInFlight = Math.trunc((severeImpact.infectionsByRequestedTime * region.avgDailyIncomeInUSD * region.avgDailyIncomePopulation) / days);
 
   return {
     data, impact, severeImpact,
