@@ -10,9 +10,9 @@ const covid19ImpactEstimator = (data) => {
   const severeImpact = { currentlyInfected: reportedCases * 50 };
 
   let powerFactor;
-  if (periodType === 'days') {
+  if (periodType == 'days') {
     powerFactor = Math.trunc(timeToElapse / 3);
-  } else if (periodType === 'weeks') {
+  } else if (periodType == 'weeks') {
     powerFactor = Math.trunc((timeToElapse * 7) / 3);
   } else {
     powerFactor = Math.trunc((timeToElapse * 30) / 3);
