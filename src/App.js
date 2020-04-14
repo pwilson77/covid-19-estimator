@@ -68,5 +68,5 @@ app.get('/api/v1/on-covid-19/logs', (req, res) => {
     res.send(data);
   });
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
-  logger.write(`${req.method} /api/v1/on-covid-19/logs   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  logger.write(`${req.method} /api/v1/on-covid-19/logs   ${res.statusCode}   ${end}ms \n`);
 });
