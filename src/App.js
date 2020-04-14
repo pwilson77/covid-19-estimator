@@ -34,7 +34,7 @@ app.post('/api/v1/on-covid-19', (req, res) => {
   covidData = covid19ImpactEstimator(req.body);
   res.send(covidData);
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
-  logger.write(`POST /api/v1/on-covid-19    ${res.statusCode}   ${end}ms \n`);
+  logger.write(`POST /api/v1/on-covid-19    ${res.statusCode}   ${end}ms \r\n`);
 });
 
 app.post('/api/v1/on-covid-19/json', (req, res) => {
@@ -42,7 +42,7 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
   res.set('Content-Type', 'application/json');
   res.send(covidData);
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
-  logger.write(`POST /api/v1/on-covid-19/json   ${res.statusCode}   ${end}ms \n`);
+  logger.write(`POST /api/v1/on-covid-19/json   ${res.statusCode}   ${end}ms \r\n`);
 });
 
 app.post('/api/v1/on-covid-19/xml', (req, res) => {
@@ -50,16 +50,16 @@ app.post('/api/v1/on-covid-19/xml', (req, res) => {
   res.set('Content-Type', 'application/xml');
   res.send(toXML(covidData));
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
-  logger.write(`POST /api/v1/on-covid-19/xml   ${res.statusCode}   ${end}ms \n`);
+  logger.write(`POST /api/v1/on-covid-19/xml   ${res.statusCode}   ${end}ms \r\n`);
 });
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const start = Date.now();
-  res.set('Content-Type', 'text/plain');
   fs.readFile('./src/log.txt', 'utf8', (err, data) => {
     if (err) throw err;
+    res.type('text/plain');
     res.send(data);
   });
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
-  logger.write(`GET /api/v1/on-covid-19/logs   ${res.statusCode}   ${end}ms \n`);
+  logger.write(`GET /api/v1/on-covid-19/logs   ${res.statusCode}   ${end}ms \r\n`);
 });
