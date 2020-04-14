@@ -39,7 +39,6 @@ app.post('/api/v1/on-covid-19', (req, res) => {
 
 app.post('/api/v1/on-covid-19/json', (req, res) => {
   const start = Date.now();
-  const durationInMilliseconds = getDurationInMilliseconds(start);
   res.set('Content-Type', 'application/json');
   res.send(covidData);
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
@@ -48,7 +47,6 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
 
 app.post('/api/v1/on-covid-19/xml', (req, res) => {
   const start = Date.now();
-  const durationInMilliseconds = getDurationInMilliseconds(start);
   res.set('Content-Type', 'application/xml');
   res.send(toXML(covidData));
   const end = Math.floor(Date.now() - start).toString().padStart(2, 0);
@@ -57,7 +55,6 @@ app.post('/api/v1/on-covid-19/xml', (req, res) => {
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const start = Date.now();
-  const durationInMilliseconds = getDurationInMilliseconds(start);
   res.set('Content-Type', 'text/plain');
   fs.readFile('./src/log.txt', 'utf8', (err, data) => {
     if (err) throw err;
