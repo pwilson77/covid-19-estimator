@@ -46,20 +46,20 @@ app.post('/api/v1/on-covid-19', (req, res) => {
   res.send(covidData);
 });
 
-app.get('/api/v1/on-covid-19/json', (req, res) => {
+app.post('/api/v1/on-covid-19/json', (req, res) => {
   const start = process.hrtime();
   const durationInMilliseconds = getDurationInMilliseconds(start);
 
-  logger.write(`GET /api/v1/on-covid-19/json   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  logger.write(`POST /api/v1/on-covid-19/json   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
   res.set('Content-Type', 'application/json');
   res.send(covidData);
 });
 
-app.get('/api/v1/on-covid-19/xml', (req, res) => {
+app.post('/api/v1/on-covid-19/xml', (req, res) => {
   const start = process.hrtime();
   const durationInMilliseconds = getDurationInMilliseconds(start);
 
-  logger.write(`GET /api/v1/on-covid-19/xml   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
+  logger.write(`POST /api/v1/on-covid-19/xml   ${res.statusCode}   ${durationInMilliseconds}ms \n`);
   res.set('Content-Type', 'application/xml');
   res.send(toXML(covidData));
 });
