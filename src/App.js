@@ -13,7 +13,7 @@ const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
 
-const logger = fs.createWriteStream('./src/logs.json', 'utf8',{
+const logger = fs.createWriteStream('./src/logs.json', 'utf8', {
   flags: 'a',
 });
 
