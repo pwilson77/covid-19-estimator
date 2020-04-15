@@ -55,7 +55,7 @@ app.post('/api/v1/on-covid-19/xml', (req, res) => {
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const start = Date.now();
-  fs.readFile('./src/log.txt', 'utf8', (err, data) => {
+  fs.readFile('./src/logs.json', 'utf8', (err, data) => {
     if (err) throw err;
     res.type('text/plain');
     res.send(data);
